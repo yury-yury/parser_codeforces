@@ -13,4 +13,4 @@ def periodic_task() -> None:
     for page in range(1, num_page+1):
         data: List[Dict[str, Any]] = parser(page)
         fill_db(data=data)
-        sleep(30)
+        sleep(20)

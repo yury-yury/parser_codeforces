@@ -25,3 +25,70 @@
 
     python 3.10
     postgresql
+
+___
+
+## Реализация проекта
+Для реализации проекта применен стек технологий:
+```commandline
+python 3.10
+django 4.2.5
+djangorestframework 3.14.0
+beautifulsoup4 4.12.2
+celery 5.3.4
+django-celery-beat 2.5.0
+redis 5.0.0
+```
+
+### Запуск проекта.
+1. Скачать код проекта из репозитория на локальный компьютер.
+2. На сервере СУБД PostgreSQL создать базу данных для использования в приложении.
+3. Запустить выполнение БД Redis.
+4. В корневой директории создать файл .env, в котором указать значение переменных для доступа к БД и API telegram:
+```commandline
+SECRET_KEY=django-insecure-3ia+e9oi%#r^)rcg72(x36m!f-jpdqwu&(4(3s=)@-a4bfr@rc
+
+DB_USER=...
+DB_PASSWORD=...
+DB_HOST=localhost
+DB_PORT=5432
+
+TG_TOKEN=5950361070:AAFTCM6xOs6FFzi0yJrftQZgERfeIAKI5Ww
+```
+5. Установить зависимости проекта:
+```commandline
+$ pip install -r requirements.txt
+```
+6. Применить миграции к базе данных, выполнив команду:
+```commandline
+$ python3 manage.py migrate
+```
+7. Запустить сервер приложения, с помощью команды:
+```commandline
+$ python3 manage.py runserver
+```
+8. Запустить телеграм-бота, выполнив консольную команду:
+```commandline
+$ python3 manage.py runbot
+```
+9. Запустить воркер Celery:
+```commandline
+$ celery -A parcer_2 worker --loglevel=info
+```
+10. Запустить воркер Celery-Beat:
+```commandline
+$ celery -A parcer_2 beat --loglevel=info
+```
+11. С помощью API приложения создать и зарегистрировать пользователя.
+12. Найти и подключить Телеграм-бота https://t.me/YuryYuryBot
+13. Отправить любое сообщение боту, в ответ придет верификационный код, который необходимо отправить по API приложения для верификации пользователя.
+14. Отправить боту команду:
+```commandline
+/tasks
+```
+Выбрать сложность и тему задач.
+
+### Примечание
+
+- Наполнение базы данных данными происходит автоматически каждый час.
+- Выполнена документация API с помощью swagger-ui и redoc.

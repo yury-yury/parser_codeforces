@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     'django_celery_beat',
+    'drf_yasg',
     
     "users",
     "codeforces_data",
@@ -161,6 +162,6 @@ CELERY_IMPORTS = ('codeforces_data.tasks', )
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
         'task': 'codeforces_data.tasks.periodic_task',  # Путь к задаче
-        'schedule': timedelta(hours=4),  # Расписание выполнения задачи (например, каждые 10 минут)
+        'schedule': timedelta(hours=1),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
